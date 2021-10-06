@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+      #cargando{
+        position:fixed;
+        width:100vw;
+        height:100vh;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999999999;        
+      }
+       #cargando span{
+         background-color: blue;
+         color: white;
+       }
+       body {
+        background: url("https://www.creativefabrica.com/wp-content/uploads/2018/10/LAB-logo-by-TheHero-Acongraphic-1-580x387.jpg") center center cover no-repeat fixed;
+        margin:0px;
+      }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>TRAZIT Dev</title>
+    <meta name="LabPLANET Dev" content="LabPLANET Dev Draft">
+
+    <!-- See https://goo.gl/OOhYW5 -->
+    <link rel="manifest" href="/manifest.json">
+    <script src="./node_modules/axios/dist/axios.min.js"></script>    
+    <link rel="icon" href="./images/header/logo-corto.png">   
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script type="module" src="./fontawesome-element.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
+		      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" 
+		      crossorigin="anonymous"/>
+
+    <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+    <script>
+      // Redux assumes `process.env.NODE_ENV` exists in the ES module build.
+      // https://github.com/reactjs/redux/issues/2907
+      window.process = { env: { NODE_ENV: 'production' } };
+    </script>
+    <script>
+      document.onkeydown = function(){
+      switch (event.keyCode){
+            case 116 : //F5 button
+                event.returnValue = false;
+                event.keyCode = 0;
+                return false;
+            case 82 : //R button
+                if (event.ctrlKey){ 
+                    event.returnValue = false;
+                    event.keyCode = 0;
+                    return false;
+                }
+        }
+      }    
+    </script>
+    <script>
+      //document.onmousedown="if (event.button==2) return false";
+      //document.oncontextmenu=new Function("return false");
+    </script>
+  
+    <script type="module" src="./src/elements/platform-main.js" crossorigin></script> 
+  
+  </head>
+  <body> 
+
+       <!-- <platform-login></platform-login> -->
+      <platform-main>
+        <div id="cargando">
+          <!-- <span>Cargando ...</span> -->
+          <span style="font-size: 48px; background-color:white; color:#ccf7f8;">
+            <i class="fas fa-spinner fa-pulse"></i>
+          </span>          
+          <p>
+          <img class="formFieldLogoCircle" src="./images/header/tzzzrazit-removebg.png" float="{{field.float}}" aligned="center" alt="LabPLANET" > 
+          </p>
+          
+
+        </div>
+      </platform-main> 
+      
+  </body>
+</html>

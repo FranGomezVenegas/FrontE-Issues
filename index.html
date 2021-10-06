@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="Description" content="Put your description here.">
+  <base href="/">
+  <script>
+    if ('Notification' in window && navigator.serviceWorker) {
+      // Display the UI to let the user toggle notifications
+      if (Notification.permission === "granted") {
+        /* do our magic */
+        console.log("Notif allowed")
+      } else if (Notification.permission === "blocked") {
+        /* the user has previously denied push. Can't reprompt. */
+        console.log("Notif denied")
+      } else {
+        /* show a prompt to the user */
+        Notification.requestPermission(function (status) {
+          console.log('Notification permission status:', status);
+        });
+      }
+      navigator.serviceWorker.register("/pwabuilder-sw.js")
+    }
+
+    // Redux assumes `process.env.NODE_ENV` exists in the ES module build.
+    // https://github.com/reactjs/redux/issues/2907
+    window.process = { env: { NODE_ENV: 'production' } };
+
+    // deduping-fix custom element
+    const _customElementsDefine = window.customElements.define;
+    window.customElements.define = (name, cl, conf) => {
+      if (!customElements.get(name)) {
+        _customElementsDefine.call(window.customElements, name, cl, conf);
+      } else {
+        console.warn(`${name} has been defined twice`);
+      }
+    };
+
+  </script>
+
+  <style>
+    #cargando {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999999999;
+    }
+
+    #cargando span {
+      background-color: blue;
+      color: white;
+    }
+
+    body {
+      background: url("https://www.creativefabrica.com/wp-content/uploads/2018/10/LAB-logo-by-TheHero-Acongraphic-1-580x387.jpg") center center cover no-repeat fixed;
+      margin: 0px;
+    }
+
+    pwa-update::part(updateToast) {
+      font-size: 12px;
+      min-width: none;
+      width: 200px;
+    }
+  </style>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    // Redux assumes `process.env.NODE_ENV` exists in the ES module build.
+    // https://github.com/reactjs/redux/issues/2907
+    window.process = { env: { NODE_ENV: 'production' } };
+  </script>
+  <title>trazit-dev</title>
+</head>
+
+<body>
+  <trazit-dev></trazit-dev>
+
+  <script type="module" src="./src/trazit-dev.js"></script>
+  <script type="module" src='./pwabuilder-sw-register.js'></script>
+</body>
+
+</html>
