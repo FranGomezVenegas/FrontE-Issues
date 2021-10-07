@@ -1,5 +1,5 @@
 export const notificationsTab={
-  lp_frontend_page_name: '/src/elements/platformComponents/Tabs/Notifications/session-notifications.js',
+  lp_frontend_page_name: 'session-notifications',
   tabName: 'session-notifications',
   tabLabel_en: 'Notifications',
   tabLabel_es: 'Notificaciones',
@@ -8,7 +8,7 @@ export const notificationsTab={
   systemTab: true,
 };
 export const SOP_pendingSOPTab={
-    lp_frontend_page_name: '/src/elements/platformComponents/Tabs/SOP/MyPendingSOPs/my-pending-sops.js',        
+    lp_frontend_page_name: 'my-pending-sops',
     tabName: 'sop-myPendingSops',
     tabLabel_en: 'My Pending SOPs',
     tabLabel_es: 'Mis PNT Pendientes',
@@ -17,7 +17,7 @@ export const SOP_pendingSOPTab={
     systemTab: true,
 };
   export const SOP_userMySOPTab={
-    lp_frontend_page_name: '/src/elements/platformComponents/Tabs/SOP/MySOPs/my-sops.js',
+    lp_frontend_page_name: 'my-sops',
     tabName: 'sop-allMySops',
     tabLabel_en: 'All My SOPs',
     tabLabel_es: 'Mis PNTs',
@@ -26,7 +26,7 @@ export const SOP_pendingSOPTab={
     systemTab: true,
 };
 export const Incidents_ManagementTab={
-  lp_frontend_page_name: '/src/elements/platformComponents/Incidents/incident-management.js',        
+  lp_frontend_page_name: 'incident-management',        
   tabName: 'incident-management',
   tabLabel_en: 'Incidents',
   tabLabel_es: 'Incidencias',
@@ -35,7 +35,7 @@ export const Incidents_ManagementTab={
   tabEsignRequired: false, tabConfirmUserRequired: false        
 };
 export const User_UserProfileTab={
-  lp_frontend_page_name: '/src/elements/platformComponents/User/user-profile/user-profile.js',        
+  lp_frontend_page_name: 'user-profile',        
   tabName: 'user-profile',
   tabLabel_en: 'User Profile',
   tabLabel_es: 'Perfil de usuario',
@@ -44,7 +44,7 @@ export const User_UserProfileTab={
   systemTab: true,     
 }
 export const User_VideoTutorialTab={
-  lp_frontend_page_name: '/src/elements/platformComponents/VideoTutorial/videotutorial-tab.js',        
+  lp_frontend_page_name: 'videotutorial-tab',        
   tabName: 'videotutorial-tab',
   tabLabel_en: 'Video Tutorial',
   tabLabel_es: 'Tutorial en Video',
@@ -53,7 +53,7 @@ export const User_VideoTutorialTab={
   systemTab: true,     
 }
 export const Procedures_ProcedureManagement={
-  lp_frontend_page_name: '../../platformComponents/ProceduresManagement/04procedure/procedure-management.js',        
+  lp_frontend_page_name: 'procedure-management',        
   tabName: 'procedure-management',
   tabLabel_en: 'Procedure Management',
   tabLabel_es: 'Gestión de Proceso',

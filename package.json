@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "build": "rimraf build && rollup -c rollup.config.js",
-    "start:build": "npm run build && web-dev-server --root-dir build --app-index build/index.html --open --compatibility none --port 8001",
-    "start": "web-dev-server --app-index index.html --node-resolve --open --watch"
+    "build": "node init && rimraf build && rollup -c rollup.config.js",
+    "start:build": "node init && npm run build && web-dev-server --root-dir build --app-index build/index.html --open --compatibility none --port 8001",
+    "start": "node init && web-dev-server --app-index index.html --node-resolve --open --watch"
   },
   "devDependencies": {
     "@alenaksu/json-viewer": "^0.1.0",
