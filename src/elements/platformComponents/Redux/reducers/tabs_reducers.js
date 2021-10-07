@@ -11,46 +11,46 @@
 // in app-center-tabs
 // <my-pending-sops tab-index="{{tabIndex}}" name="sop-myPendingSops"> </my-pending-sops>
 
-import {ADD_TAB, ADD_SYSTEM_TAB, CLOSE_TAB, SET_CURRENT_TAB, DO_LOGOUT_TAB, addSystemTab} from '../actions/tabs_actions.js';
-import {systemTabContentUrl, tabContentUrl} from '../../../../config/platform/logic/api-config';
+import { ADD_TAB, ADD_SYSTEM_TAB, CLOSE_TAB, SET_CURRENT_TAB, DO_LOGOUT_TAB, addSystemTab } from '../actions/tabs_actions.js';
+import { systemTabContentUrl, tabContentUrl } from '../../../../config/platform/logic/api-config';
 
-  const InitialTabState = {
-    tabs: [],
-    tabIndex:0, 
-    currentTabName:'',
-    currentTab:[],
-    currentTabProcedure: [],
-    currentTabSops: [],
-  };
-  
-  const eventExists = (tabs, tab) => {
-    return tabs.find((e) => e.tabName === tab.tabName);
-  }
+const InitialTabState = {
+  tabs: [],
+  tabIndex: 0,
+  currentTabName: '',
+  currentTab: [],
+  currentTabProcedure: [],
+  currentTabSops: [],
+};
 
-  const tabsReducer = (state = InitialTabState, action) => {
-    let foundTabInfo=[];
-    switch(action.type) {
-      case ADD_SYSTEM_TAB:
-        var tabUrl = systemTabContentUrl;
-        tabUrl = tabUrl + action.tab.lp_frontend_page_name;
-        import(tabUrl);
-        var found = state.tabs.find(function(tab) {
-          return tab.tabName == action.tab.tabName;
-        });      
-      if (found == undefined){
+const eventExists = (tabs, tab) => {
+  return tabs.find((e) => e.tabName === tab.tabName);
+}
+
+const tabsReducer = (state = InitialTabState, action) => {
+  let foundTabInfo = [];
+  switch (action.type) {
+    case ADD_SYSTEM_TAB:
+      // var tabUrl = systemTabContentUrl;
+      // tabUrl = tabUrl + action.tab.lp_frontend_page_name;
+      // console.log(action.tab.lp_frontend_page_name)
+      var found = state.tabs.find(function (tab) {
+        return tab.tabName == action.tab.tabName;
+      });
+      if (found == undefined) {
         return {
           ...state,
           tabIndex: state.tabIndex + 1,
           tabs: [
             ...state.tabs,
-            action.tab           
+            action.tab
           ],
           currentTab: action.tab,
           currentTabName: action.tab.tabName,
           currentTabSops: action.tab.currentTabSops,
           currentTabProcedure: action.tab.currentTabProcedure,
         }
-      }else{
+      } else {
         return {
           ...state,
           currentTab: action.tab,
@@ -59,21 +59,17 @@ import {systemTabContentUrl, tabContentUrl} from '../../../../config/platform/lo
           currentTabProcedure: action.tab.currentTabProcedure,
         }
       }
-      case ADD_TAB:
-        var tabUrl = tabContentUrl;
-        tabUrl = tabUrl.replace('#ModuleName', action.tab.procedure.name);        
-        tabUrl = tabUrl.replace('#PageName', action.tab.tabName);
-        import(tabUrl);                
-        var found = state.tabs.find(function(tab) {
-          return tab.tabName == action.tab.tabName;
-        });      
-      if (found == undefined){
+    case ADD_TAB:
+      var found = state.tabs.find(function (tab) {
+        return tab.tabName == action.tab.tabName;
+      });
+      if (found == undefined) {
         return {
           ...state,
           tabIndex: state.tabIndex + 1,
           tabs: [
             ...state.tabs,
-            action.tab           
+            action.tab
           ],
           tabIndex: tabPosic,
           currentTab: action.tab,
@@ -81,7 +77,7 @@ import {systemTabContentUrl, tabContentUrl} from '../../../../config/platform/lo
           currentTabSops: action.tab.currentTabSops,
           currentTabProcedure: action.tab.currentTabProcedure,
         }
-      }else{
+      } else {
         return {
           ...state,
           currentTab: found,
@@ -91,64 +87,64 @@ import {systemTabContentUrl, tabContentUrl} from '../../../../config/platform/lo
 
         }
       }
-      case CLOSE_TAB:
-        let tabI;
-        if (state.tabs.length<=1){
-          foundTabInfo='';
-          action.tabName='';
-          return {                      
-            tabIndex:0, 
-            currentTab:'',
-            currentTabName: '',
-            currentTabSops: '',
-            currentTabProcedure: '',
-            tabs: [],
+    case CLOSE_TAB:
+      let tabI;
+      if (state.tabs.length <= 1) {
+        foundTabInfo = '';
+        action.tabName = '';
+        return {
+          tabIndex: 0,
+          currentTab: '',
+          currentTabName: '',
+          currentTabSops: '',
+          currentTabProcedure: '',
+          tabs: [],
+        }
+      } else {
+        foundTabInfo = state.tabs.find(function (tab) {
+          if (tab.tabName == action.tabName) { return tab; }
+        });
+        if (foundTabInfo == undefined) {
+          return {
+            ...state,
           }
-        }else{
-          foundTabInfo = state.tabs.find(function(tab) { 
-            if (tab.tabName == action.tabName){return tab;}
-          });  
-          if (foundTabInfo == undefined){
+        } else {
+          var tabPosic = state.tabs.indexOf(foundTabInfo);
+          if (tabPosic == 0 && state.tabs.length == 1) {
             return {
-              ...state,
+              tabIndex: 0,
+              currentTab: '',
+              currentTabName: '',
+              currentTabSops: '',
+              currentTabProcedure: '',
+              tabs: [],
             }
-          }else{           
-            var tabPosic = state.tabs.indexOf(foundTabInfo); 
-            if (tabPosic== 0 && state.tabs.length==1){
-              return {                      
-                tabIndex:0, 
-                currentTab:'',
-                currentTabName: '',
-                currentTabSops: '',
-                currentTabProcedure: '',
-                tabs: [],
-              }    
-            }  
-            var previousTabPosic=0;
-            if (tabPosic>0){previousTabPosic=tabPosic-1;}
-            return {
-              ...state,
-              tabIndex: tabPosic,
-              currentTab: state.tabs[previousTabPosic],
-              currentTabName: state.tabs[previousTabPosic].tabName,
-              currentTabSops: state.tabs[previousTabPosic].currentTabSops,
-              currentTabProcedure: state.tabs[previousTabPosic].currentTabProcedure,
-              tabs: state.tabs.filter((tab) => {            
-                return (tab.tabName != foundTabInfo.tabName);
-              })
-            }
+          }
+          var previousTabPosic = 0;
+          if (tabPosic > 0) { previousTabPosic = tabPosic - 1; }
+          return {
+            ...state,
+            tabIndex: tabPosic,
+            currentTab: state.tabs[previousTabPosic],
+            currentTabName: state.tabs[previousTabPosic].tabName,
+            currentTabSops: state.tabs[previousTabPosic].currentTabSops,
+            currentTabProcedure: state.tabs[previousTabPosic].currentTabProcedure,
+            tabs: state.tabs.filter((tab) => {
+              return (tab.tabName != foundTabInfo.tabName);
+            })
           }
         }
-      case SET_CURRENT_TAB:
-      foundTabInfo = state.tabs.find(function(tab) { 
-        if (tab.tabName == action.tabName){return tab;}
-      });      
-      console.log('SET CURRENT TAB', 'tab', tab, 'foundTabInfo', foundTabInfo);        
-      if (foundTabInfo == undefined){
+      }
+    case SET_CURRENT_TAB:
+      foundTabInfo = state.tabs.find(function (tab) {
+        if (tab.tabName == action.tabName) { return tab; }
+      });
+      console.log('SET CURRENT TAB', 'tab', tab, 'foundTabInfo', foundTabInfo);
+      if (foundTabInfo == undefined) {
         return {
           ...state,
         }
-      }else{
+      } else {
         var tabPosic = state.tabs.indexOf(foundTabInfo);
         return {
           ...state,
@@ -159,17 +155,17 @@ import {systemTabContentUrl, tabContentUrl} from '../../../../config/platform/lo
           currentTabProcedure: foundTabInfo.currentTabProcedure,
         }
       }
-      case DO_LOGOUT_TAB:
-        return {
-          tabs: [],
-          tabIndex:0, 
-          currentTab: [],
-          currentTabName:'',
-          currentTabProcedure:[],
-          currentTabSops:[],
-        }          
-      default:
-        return state;
-    }
+    case DO_LOGOUT_TAB:
+      return {
+        tabs: [],
+        tabIndex: 0,
+        currentTab: [],
+        currentTabName: '',
+        currentTabProcedure: [],
+        currentTabSops: [],
+      }
+    default:
+      return state;
   }
+}
 export default tabsReducer;
