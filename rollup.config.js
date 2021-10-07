@@ -47,7 +47,7 @@ export default merge(baseConfig, {
     injectManifest({
       swSrc: 'pwabuilder-sw.js',
       swDest: outputDir +'/pwabuilder-sw.js',
-      globPatterns: ['index.html','src/**/*.{html,json,js}','images/**/*.{ico,png,jpg}'],
+      globPatterns: ['index.html','src/**/*.{html,json,js,jpg,png}','images/**/*.{ico,png,jpg}'],
       globDirectory: outputDir +'/',
       maximumFileSizeToCacheInBytes: 4 * 1024 * 1024
     })
